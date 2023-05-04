@@ -1,0 +1,24 @@
+# Django specific files
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+eggs/
+lib/
+parts/
+var/
+*.log
+
+# Environments
+.env
+.env.*
+
+# Databases
+*.sqlite3
+*.sqlite3-journal
+
+# Django development server files
+*.dev.sqlite3
+products/*

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Fetch URL</title>
+</head>
+
+<body>
+  <form>
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" name="url" placeholder="Enter URL">
+    <br>
+    <input type="button" value="Submit" onclick="fetchData()">
+  </form>
+  <script>
+    let timeoutId;
+
+    const input = document.querySelector('input[name="url"]');
+
+    input.addEventListener('input', function() {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function() {
+      fetchData();
+    }, 3000);
+    });
+
+    function fetchData() {
+      var url = document.getElementById("url").value;
+      let data = { url: url }
+      fetch("/url_to_data/", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          let items = [];
+          for (let key in data) {
+            items.push(`<li id='${key}'>${data[key]}</li>`);
+          }
+
+          let list = `<ul class='my-list'>${items.join("")}</ul>`;
+          document.body.innerHTML = list;
+    
+        })
+        .catch(error => console.log(error));
+    }
+  </script>
+</body>
+
+</html>
